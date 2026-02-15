@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cart Review - KEEN Audio</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">KEEN Audio</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Shop</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="booking.html">Booking</a></li>
+      <li><a href="cart.html" class="active">Cart (<span id="cart-count">0</span>)</a></li>
+    </ul>
+  </nav>
+
+  <section class="cart-review-section">
+    <div class="cart-review-header">
+      <h1>Cart Review</h1>
+      <p>Confirm your items before placing your order.</p>
+    </div>
+
+    <div id="cart-review-list" class="cart-review-list"></div>
+
+    <div class="cart-review-footer">
+      <div class="cart-review-total">
+        Total: <span id="cart-review-total">KSh 0</span>
+      </div>
+      <button id="confirm-order" class="confirm-order-btn">Confirm Order</button>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2026 KEEN Audio. All rights reserved.
+  </footer>
+
+  <script src="js/cart-review.js"></script>
+</body>
+</html>

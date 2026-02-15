@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keen Audio - Book Installation</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<header class="navbar">
+  <div class="logo">
+    <img src="images/logo.png" alt="Keen Audio Logo">
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Shop</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<section class="booking-area">
+  <div class="booking-container">
+
+    <h2 class="booking-title">Schedule Your Installation</h2>
+    <p class="booking-subtitle">Select your service and preferred appointment time</p>
+
+    <!-- SERVICE SELECTION -->
+    <div class="service-grid">
+      <div class="service-option">
+        <input type="radio" id="audio" name="service" value="Audio Installation" />
+        <label for="audio">Car Audio Installation</label>
+      </div>
+      <div class="service-option">
+        <input type="radio" id="camera" name="service" value="Camera Installation" />
+        <label for="camera">Reverse / Dash Camera</label>
+      </div>
+      <div class="service-option">
+        <input type="radio" id="full" name="service" value="Full Installation" />
+        <label for="full">Full Service Package</label>
+      </div>
+    </div>
+
+    <!-- CUSTOMER DETAILS -->
+    <form id="bookingForm" class="booking-form">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" placeholder="Your Name" required />
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" placeholder="07XXXXXXXX" required />
+
+      <div class="vehicle-details">
+        <div>
+          <label for="vehicleType">Vehicle Type</label>
+          <select id="vehicleType" required>
+            <option value="">Select Vehicle Type</option>
+            <option value="Sedan">Sedan</option>
+            <option value="SUV">SUV</option>
+            <option value="Hatchback">Hatchback</option>
+            <option value="Truck">Truck</option>
+            <option value="Van">Van</option>
+            <option value="Coupe">Coupe</option>
+            <option value="Wagon">Wagon</option>
+            <option value="Crossover">Crossover</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div>
+          <label for="vehicleModel">Vehicle Model/Make</label>
+          <input type="text" id="vehicleModel" placeholder="e.g., Toyota Camry" required />
+        </div>
+      </div>
+
+      <div class="datetime">
+        <div>
+          <label for="date">Preferred Date</label>
+          <div class="date-picker-wrapper">
+            <input type="date" id="date" required />
+            <span class="date-display" id="dateDisplay">Select a date</span>
+          </div>
+        </div>
+        <div>
+          <label for="time">Preferred Time</label>
+          <input type="time" id="time" required />
+        </div>
+      </div>
+
+      <button class="btn" type="submit">Send WhatsApp Booking</button>
+    </form>
+
+    <p class="booking-note">We’ll confirm your booking and send a message once complete.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>© 2026 Keen Audio. All Rights Reserved.</p>
+</footer>
+</body>
+<script src="js/booking.js"></script>
+<script>
+  // Format date display
+  const dateInput = document.getElementById('date');
+  const dateDisplay = document.getElementById('dateDisplay');
+
+  dateInput.addEventListener('change', function() {
+    if (this.value) {
+      const date = new Date(this.value + 'T00:00:00');
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const formattedDate = date.toLocaleDateString('en-US', options);
+      dateDisplay.textContent = formattedDate;
+    } else {
+      dateDisplay.textContent = 'Select a date';
+    }
+  });
+</script>
