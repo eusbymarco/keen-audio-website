@@ -9,8 +9,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const publicDir = path.join(__dirname, "..", "public_html");
+const publicDir = path.join(__dirname, "..", "/");
 app.use(express.static(publicDir));
+const publicHtml = path.join(__dirname, "..", "public_html");
+app.use(express.static(publicHtml));
 
 app.use("/api/mpesa", mpesaRoutes);
 
