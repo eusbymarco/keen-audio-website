@@ -1,10 +1,76 @@
 const CART_KEY = "cart";
+const REVIEW_KEY = "customerReviews";
 let cart = [];
+let reviews = [];
 
 function addToCart(name, price, image) {
   cart.push({ name, price, image });
   saveCart();
   updateCart();
+}
+
+function submitReview(event) {
+  event.preventDefault();
+
+  const nameInput = document.getElementById('review-name');
+  const ratingInput = document.getElementById('review-rating');
+  const textInput = document.getElementById('review-text');
+
+  const review = {
+    name: nameInput.value.trim() || 'Anonymous',
+    rating: Number(ratingInput.value),
+    text: textInput.value.trim(),
+    date: new Date().toISOString()
+  };
+
+  if (!review.text) {
+    alert('Please enter your review before posting.');
+    return;
+  }
+
+  reviews.unshift(review);
+  saveReviews();
+  renderReviews();
+
+  document.getElementById('review-form').reset();
+}
+
+function saveReviews() {
+  localStorage.setItem(REVIEW_KEY, JSON.stringify(reviews));
+}
+
+function loadReviews() {
+  const stored = localStorage.getItem(REVIEW_KEY);
+  reviews = stored ? JSON.parse(stored) : [];
+}
+
+function formatReviewStars(count) {
+  return '★'.repeat(count) + '☆'.repeat(5 - count);
+}
+
+function renderReviews() {
+  const container = document.getElementById('reviews-list');
+  if (!container) return;
+
+  if (reviews.length === 0) {
+    container.innerHTML = `<p class="no-reviews">No reviews yet. Be the first to share your feedback!</p>`;
+    return;
+  }
+
+  container.innerHTML = reviews.map(review => {
+    const date = new Date(review.date);
+    const formattedDate = date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+    return `
+      <div class="review-card">
+        <div class="review-meta">
+          <h4>${review.name}</h4>
+          <span class="review-stars">${formatReviewStars(review.rating)}</span>
+          <span>${formattedDate}</span>
+        </div>
+        <p>${review.text}</p>
+      </div>
+    `;
+  }).join('');
 }
 
 function removeItem(index) {
@@ -134,7 +200,9 @@ window.addEventListener('touchstart', function(event) {
 });
 document.addEventListener('DOMContentLoaded', () => {
     loadCart();
+    loadReviews();
     updateCart();
+    renderReviews();
 
     const links = document.querySelectorAll('.category-link');
     const sections = document.querySelectorAll('.product-category');

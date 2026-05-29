@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms & Conditions - Keen Audio</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    .terms-container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      line-height: 1.8;
+    }
+
+    .terms-container h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 2.5em;
+    }
+
+    .terms-last-updated {
+      text-align: center;
+      color: #888;
+      margin-bottom: 40px;
+      font-size: 0.95em;
+    }
+
+    .terms-container h2 {
+      color: #222;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+      font-size: 1.5em;
+    }
+
+    .terms-container p {
+      color: #555;
+      margin-bottom: 12px;
+      font-size: 1em;
+    }
+
+    .terms-container ul {
+      color: #555;
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+
+    .terms-container li {
+      margin-bottom: 8px;
+    }
+
+    .terms-footer {
+      text-align: center;
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+      color: #888;
+    }
+
+    .terms-footer a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .terms-footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<header class="navbar">
+  <a class="navbar-brand" href="index.html">
+    <div class="logo">
+      <img src="images/logo.png" alt="Keen Audio Logo">
+    </div>
+    <h1>Keen Audio</h1>
+  </a>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="index.html#about">About</a>
+    <a href="products.html">Shop</a>
+    <a href="booking.html">Book Installation</a>
+    <a href="contact.html">Contact</a>
+    <div class="more-dropdown">
+      <a href="#" class="more-toggle" onclick="toggleMoreDropdown(event)">More <span class="arrow">▼</span></a>
+      <div id="more-menu" class="more-menu">
+        <div class="more-category" onclick="openModal('audio-tips-modal')">
+          <span class="category-title">Audio Setup Tips</span>
+        </div>
+        <div class="more-category" onclick="openModal('smart-screens-modal')">
+          <span class="category-title">Smart Screens & Headphones</span>
+        </div>
+        <div class="more-category" onclick="openModal('faqs-modal')">
+          <span class="category-title">FAQs</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="cart-icon" onclick="toggleCart()">
+  🛒
+  <span id="cart-count">0</span>
+</div>
+</header>
+
+<div class="terms-container">
+  <h1>Terms & Conditions</h1>
+  <p class="terms-last-updated">Last updated: April 2026</p>
+
+  <h2>1. Services</h2>
+  <p>Keen Audio provides car audio installation, custom subwoofers, speakers, dashboard cameras, and related audio equipment and services. All services are provided on an as-is basis and subject to these terms and conditions.</p>
+
+  <h2>2. Payments</h2>
+  <p>All prices are quoted in Kenyan Shillings (KSh) and include applicable taxes unless otherwise stated. We accept various payment methods including cash, mobile money (M-Pesa), bank transfers, and credit/debit cards. Payment must be made in full before service delivery unless a payment plan has been agreed upon in writing.</p>
+
+  <h2>3. Bookings</h2>
+  <p>Bookings are confirmed upon receipt of payment or deposit. Customers are required to provide accurate information when booking services. Cancellations must be made at least 48 hours in advance to receive a refund. Late cancellations (less than 48 hours) will forfeit the deposit.</p>
+
+  <h2>4. Installation</h2>
+  <p>Our professional technicians will install equipment according to manufacturer specifications and industry standards. Installation involves working on your vehicle, and we take all necessary precautions to prevent damage. However, we are not responsible for pre-existing vehicle damage or defects. Upon completion, customers must inspect the work and report any issues immediately.</p>
+
+  <h2>5. Privacy</h2>
+  <p>Your personal information is collected only for service provision and communication purposes. We do not share your information with third parties without your consent, except as required by law. For detailed information, please see our Privacy Policy or contact us directly.</p>
+
+  <h2>6. Contact</h2>
+  <p>For questions regarding these terms and conditions, or for any concerns about our services, please contact us:</p>
+  <ul>
+    <li>Email: keenaudio4@gmail.com</li>
+    <li>Phone: +254 768102133</li>
+    <li>Address: Nairobi, Kenya</li>
+  </ul>
+
+  <p style="margin-top: 30px; font-style: italic; color: #666;">By using Keen Audio's services, you agree to abide by these Terms & Conditions. We reserve the right to modify these terms at any time, with notice to customers.</p>
+</div>
+
+<div class="terms-footer">
+  <p>&copy; 2026 Keen Audio. All rights reserved. | <a href="index.html">Home</a> | <a href="terms.html">Terms & Conditions</a> | <a href="contact.html">Contact</a></p>
+</div>
+
+</body>
+</html>

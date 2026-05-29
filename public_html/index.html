@@ -35,6 +35,9 @@
         <div class="more-category" onclick="openModal('faqs-modal')">
           <span class="category-title">FAQs</span>
         </div>
+        <a class="more-category" href="terms.html" style="text-decoration: none;">
+          <span class="category-title">Terms & Conditions</span>
+        </a>
       </div>
     </div>
   </nav>
@@ -58,7 +61,7 @@
   <section id="about" class="what-we-offer">
     <h2>What We Offer</h2>
     <div class="offer-slider" aria-label="What we offer slides">
-      <a class="slide" href="products.html#customized-subwoofers">
+      <a class="slide" href="products.html#custom-made-subwoofers-and-cabinets">
         <img src="images/img20.jpeg" alt="Subwoofers" />
         <div class="slide-caption">SUBWOOFERS</div>
       </a>
@@ -130,6 +133,7 @@
 
     </div>
   </section>
+
 <!-- Slide-out Cart Drawer -->
 <div id="cart-drawer" class="cart-drawer">
   <div class="cart-header">
@@ -374,12 +378,13 @@
 
     <div class="why-card">
       <h3>Convenient Location</h3>
-      <p>for easy navigation we visit the map section to view our location.</p>
+      <p>for easy navigation visit the map section to view our location.</p>
     </div>
 
     <div class="why-card">
       <h3>M-Pesa Payments</h3>
       <p>Simple, fast, and secure payments with transparent pricing.</p>
+      <p>Receive an invoice upon ordering and a receipt after paying for services.</p>
     </div>
   </div>
 </section>
@@ -396,6 +401,31 @@
       <p style="margin-top: 12px; color: var(--text-muted);">Watch our technicians at work as they install high-quality audio systems.</p>
     </div>
   </div>
+
+  <!-- Customer Reviews -->
+  <section class="reviews-section" aria-label="Customer reviews">
+    <h2>Customer Reviews</h2>
+    <p class="review-intro">Real feedback from clients who trust Keen Audio.</p>
+
+    <div class="review-form-card">
+      <form id="review-form" onsubmit="submitReview(event)">
+        <input type="text" id="review-name" name="name" placeholder="Your name" required>
+        <select id="review-rating" name="rating" required>
+          <option value="5">★★★★★ Excellent</option>
+          <option value="4">★★★★ Very good</option>
+          <option value="3">★★★ Good</option>
+          <option value="2">★★ Fair</option>
+          <option value="1">★ Needs improvement</option>
+        </select>
+        <textarea id="review-text" name="review" rows="4" placeholder="Your review" required></textarea>
+        <button type="submit" class="submit-review-btn">Post Review</button>
+      </form>
+    </div>
+
+    <div id="reviews-list" class="reviews-list">
+      <p class="no-reviews">No reviews yet. Share your voice.</p>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer>
