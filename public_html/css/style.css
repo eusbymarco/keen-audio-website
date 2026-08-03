@@ -2519,3 +2519,11 @@ footer {
 }
 
 
+
+.checkout-customer-details { background: #fff; border-radius: 12px; margin: 20px 0; padding: 20px; }
+.checkout-customer-details h2 { margin: 0; }
+.checkout-customer-details p { color: #666; }
+.checkout-fields { display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.checkout-fields label { display: grid; font-weight: 600; gap: 6px; }
+.checkout-fields input { border: 1px solid #ccc; border-radius: 6px; font: inherit; padding: 10px; }
+@media (max-width: 600px) { .checkout-fields { grid-template-columns: 1fr; } }

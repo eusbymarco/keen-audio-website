@@ -1,0 +1,5 @@
+node_modules/
+.env
+server/data/orders.json
+server/data/orders.json.tmpserver/data/customers.json
+server/data/customers.json.tmp

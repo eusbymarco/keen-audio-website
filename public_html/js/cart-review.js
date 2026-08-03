@@ -1,148 +1,20 @@
 const CART_KEY = "cart";
 const WHATSAPP_NUMBER = "254768102133";
 const currency = "KSh";
-
 const cartList = document.getElementById("cart-review-list");
 const cartTotalEl = document.getElementById("cart-review-total");
 const cartCountEl = document.getElementById("cart-count");
 const confirmBtn = document.getElementById("confirm-order");
-
-function loadCart() {
-  const stored = localStorage.getItem(CART_KEY);
-  return stored ? JSON.parse(stored) : [];
-}
-
-function saveCart(cart) {
-  localStorage.setItem(CART_KEY, JSON.stringify(cart));
-}
-
-function formatCurrency(value) {
-  return `${currency} ${value.toLocaleString()}`;
-}
-
-function normalizeCart(cart) {
-  const normalized = [];
-
-  cart.forEach(item => {
-    const qty = item.quantity || 1;
-    const key = `${item.name}__${item.price}__${item.image}`;
-    const existing = normalized.find(entry => entry.key === key);
-    if (existing) {
-      existing.quantity += qty;
-    } else {
-      normalized.push({
-        key,
-        name: item.name,
-        price: item.price,
-        image: item.image || "",
-        quantity: qty
-      });
-    }
-  });
-
-  return normalized;
-}
-
-function updateCartCount(cart) {
-  const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-  if (cartCountEl) cartCountEl.textContent = count;
-}
-
-function renderCart() {
-  let cart = loadCart();
-  cart = normalizeCart(cart);
-  saveCart(cart);
-
-  cartList.innerHTML = "";
-
-  if (cart.length === 0) {
-    cartList.innerHTML = '<p class="empty-cart">Your cart is empty.</p>';
-    cartTotalEl.textContent = formatCurrency(0);
-    updateCartCount(cart);
-    return;
-  }
-
-  let total = 0;
-
-  cart.forEach((item, index) => {
-    total += item.price * item.quantity;
-
-    const row = document.createElement("div");
-    row.className = "cart-review-item";
-    row.innerHTML = `
-      <div class="cart-review-info">
-        <img src="${item.image}" alt="${item.name}">
-        <div class="cart-review-meta">
-          <h4>${item.name}</h4>
-          <span>${formatCurrency(item.price)}</span>
-        </div>
-      </div>
-      <div class="cart-review-controls">
-        <div class="qty-control">
-          <button class="qty-btn" data-action="decrease" data-index="${index}">-</button>
-          <span class="qty-value">${item.quantity}</span>
-          <button class="qty-btn" data-action="increase" data-index="${index}">+</button>
-        </div>
-        <button class="remove-btn" data-index="${index}">Remove</button>
-      </div>
-    `;
-    cartList.appendChild(row);
-  });
-
-  cartTotalEl.textContent = formatCurrency(total);
-  updateCartCount(cart);
-}
-
-function updateQuantity(index, delta) {
-  const cart = normalizeCart(loadCart());
-  if (!cart[index]) return;
-
-  cart[index].quantity += delta;
-  if (cart[index].quantity <= 0) {
-    cart.splice(index, 1);
-  }
-
-  saveCart(cart);
-  renderCart();
-}
-
-function removeItem(index) {
-  const cart = normalizeCart(loadCart());
-  cart.splice(index, 1);
-  saveCart(cart);
-  renderCart();
-}
-
-cartList.addEventListener("click", (event) => {
-  const target = event.target;
-  const index = parseInt(target.getAttribute("data-index"), 10);
-
-  if (target.classList.contains("qty-btn")) {
-    const action = target.getAttribute("data-action");
-    updateQuantity(index, action === "increase" ? 1 : -1);
-  }
-
-  if (target.classList.contains("remove-btn")) {
-    removeItem(index);
-  }
-});
-
-confirmBtn.addEventListener("click", () => {
-  const cart = normalizeCart(loadCart());
-  if (cart.length === 0) {
-    alert("Your cart is empty.");
-    return;
-  }
-
-  const lines = cart.map((item, i) => {
-    const lineTotal = item.price * item.quantity;
-    return `${i + 1}. ${item.name} x ${item.quantity} - ${formatCurrency(lineTotal)}`;
-  });
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const message = `KEEN Audio Order:\n${lines.join("\n")}\nTotal: ${formatCurrency(total)}`;
-
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-  window.open(url, "_blank");
-});
-
+const customerNameInput = document.getElementById("customer-name");
+const customerPhoneInput = document.getElementById("customer-phone");
+function loadCart() { const stored = localStorage.getItem(CART_KEY); return stored ? JSON.parse(stored) : []; }
+function saveCart(cart) { localStorage.setItem(CART_KEY, JSON.stringify(cart)); }
+function formatCurrency(value) { return `${currency} ${value.toLocaleString()}`; }
+function normalizeCart(cart) { const normalized = []; cart.forEach((item) => { const qty = item.quantity || 1; const key = `${item.name}__${item.price}__${item.image}`; const existing = normalized.find((entry) => entry.key === key); if (existing) existing.quantity += qty; else normalized.push({ key, name: item.name, price: Number(item.price), image: item.image || "", quantity: qty }); }); return normalized; }
+function updateCartCount(cart) { const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0); if (cartCountEl) cartCountEl.textContent = count; }
+function renderCart() { const cart = normalizeCart(loadCart()); saveCart(cart); cartList.innerHTML = ""; if (!cart.length) { cartList.innerHTML = '<p class="empty-cart">Your cart is empty.</p>'; cartTotalEl.textContent = formatCurrency(0); updateCartCount(cart); return; } let total = 0; cart.forEach((item, index) => { total += item.price * item.quantity; const row = document.createElement("div"); row.className = "cart-review-item"; row.innerHTML = `<div class="cart-review-info"><img src="${item.image}" alt="${item.name}"><div class="cart-review-meta"><h4>${item.name}</h4><span>${formatCurrency(item.price)}</span></div></div><div class="cart-review-controls"><div class="qty-control"><button class="qty-btn" data-action="decrease" data-index="${index}">-</button><span class="qty-value">${item.quantity}</span><button class="qty-btn" data-action="increase" data-index="${index}">+</button></div><button class="remove-btn" data-index="${index}">Remove</button></div>`; cartList.appendChild(row); }); cartTotalEl.textContent = formatCurrency(total); updateCartCount(cart); }
+function updateQuantity(index, delta) { const cart = normalizeCart(loadCart()); if (!cart[index]) return; cart[index].quantity += delta; if (cart[index].quantity <= 0) cart.splice(index, 1); saveCart(cart); renderCart(); }
+function removeItem(index) { const cart = normalizeCart(loadCart()); cart.splice(index, 1); saveCart(cart); renderCart(); }
+cartList.addEventListener("click", (event) => { const index = Number.parseInt(event.target.getAttribute("data-index"), 10); if (event.target.classList.contains("qty-btn")) updateQuantity(index, event.target.getAttribute("data-action") === "increase" ? 1 : -1); if (event.target.classList.contains("remove-btn")) removeItem(index); });
+confirmBtn.addEventListener("click", async () => { const cart = normalizeCart(loadCart()); const customerName = customerNameInput.value.trim(); const phoneNumber = customerPhoneInput.value.trim(); if (!cart.length) return alert("Your cart is empty."); if (customerName.length < 2 || phoneNumber.length < 7) return alert("Please enter your full name and phone number."); const whatsappWindow = window.open("", "_blank"); confirmBtn.disabled = true; confirmBtn.textContent = "Saving order..."; try { const response = await fetch("/api/orders", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ customerName, phoneNumber, products: cart.map(({ name, price, quantity }) => ({ name, price, quantity })) }) }); const order = await response.json(); if (!response.ok) throw new Error(order.message || "Unable to create your order."); const lines = cart.map((item, i) => `${i + 1}. ${item.name} x ${item.quantity} - ${formatCurrency(item.price * item.quantity)}`); const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0); const message = `KEEN Audio Order ${order.invoiceNumber}:\nCustomer: ${customerName}\nPhone: ${phoneNumber}\n${lines.join("\n")}\nTotal: ${formatCurrency(total)}`; localStorage.removeItem(CART_KEY); if (whatsappWindow) whatsappWindow.location.assign(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`); else window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank"); renderCart(); alert(`Order ${order.invoiceNumber} has been created. Continue on WhatsApp to complete your request.`); } catch (error) { if (whatsappWindow) whatsappWindow.close(); alert(error.message); } finally { confirmBtn.disabled = false; confirmBtn.textContent = "Confirm Order"; } });
 renderCart();
