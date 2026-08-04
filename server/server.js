@@ -18,8 +18,35 @@ const adminAssets = path.join(__dirname, "admin", "public");
 app.use("/admin/assets", express.static(adminAssets, { index: false }));
 app.use("/admin", adminRoutes);
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(publicHtml, "index.html"));
+const pageRoutes = {
+  "/": "index.html",
+  "/products": "products.html",
+  "/booking": "booking.html",
+  "/contact": "contact.html",
+  "/cart": "cart.html",
+  "/terms": "terms.html"
+};
+
+Object.entries(pageRoutes).forEach(([route, file]) => {
+  app.get(route, (req, res) => {
+    res.sendFile(path.join(publicHtml, file));
+  });
+});
+
+const legacyRedirects = [
+  ["/index.html", "/"],
+  ["/index.htm", "/"],
+  ["/products.html", "/products"],
+  ["/booking.html", "/booking"],
+  ["/contact.html", "/contact"],
+  ["/cart.html", "/cart"],
+  ["/terms.html", "/terms"]
+];
+
+legacyRedirects.forEach(([from, to]) => {
+  app.get(from, (req, res) => {
+    res.redirect(301, to);
+  });
 });
 
 app.use(express.static(publicHtml));
