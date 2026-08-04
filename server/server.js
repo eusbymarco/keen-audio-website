@@ -6,6 +6,7 @@ require("dotenv").config();
 const mpesaRoutes = require("./routes/mpesa");
 const adminRoutes = require("./admin/routes");
 const orderRoutes = require("./orders/routes");
+const { ensureAdminAccount } = require("./admin/config");
 
 const app = express();
 app.set("trust proxy", 1);
@@ -14,6 +15,8 @@ app.use(express.json());
 
 const publicHtml = path.join(__dirname, "..", "public_html");
 const adminAssets = path.join(__dirname, "admin", "public");
+
+ensureAdminAccount();
 
 app.use("/admin/assets", express.static(adminAssets, { index: false }));
 app.use("/admin", adminRoutes);

@@ -7,7 +7,8 @@ const viewsDir = path.join(__dirname, "..", "views");
 const sections = ["/orders", "/invoices", "/customers", "/products", "/reports", "/settings"];
 
 router.use(requireAdmin);
-router.get("/", (req, res) => res.sendFile(path.join(viewsDir, "dashboard.html")));
+router.get("/", (req, res) => res.redirect("/admin/dashboard"));
+router.get("/dashboard", (req, res) => res.sendFile(path.join(viewsDir, "dashboard.html")));
 router.get(sections, (req, res) => res.sendFile(path.join(viewsDir, "dashboard.html")));
 
 module.exports = router;

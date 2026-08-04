@@ -22,7 +22,7 @@ function recordFailure(ip) {
 }
 
 router.get("/login", ensureCsrfToken, (req, res) => {
-  if (req.adminSession) return res.redirect("/admin");
+  if (req.adminSession) return res.redirect("/admin/dashboard");
   res.sendFile(path.join(viewsDir, "login.html"));
 });
 
@@ -32,16 +32,16 @@ router.post("/login", validateCsrf, (req, res) => {
 
   const { email = "", password = "" } = req.body || {};
   const config = getAdminConfig();
-  const valid = config.isConfigured && email.trim().toLowerCase() === config.email && verifyPassword(password, config.passwordHash);
+  const valid = email.trim().toLowerCase() === config.email && verifyPassword(password, config.passwordHash);
 
   if (!valid) {
     recordFailure(ip);
-    return res.status(config.isConfigured ? 401 : 503).json({ message: config.isConfigured ? "Invalid email or password." : "Admin access has not been configured." });
+    return res.status(401).json({ message: "Invalid email or password." });
   }
 
   attempts.delete(ip);
   createSession(res, config.email);
-  res.status(200).json({ redirect: "/admin" });
+  res.status(200).json({ redirect: "/admin/dashboard" });
 });
 
 router.post("/logout", validateCsrf, (req, res) => {
