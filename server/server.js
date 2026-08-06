@@ -46,6 +46,10 @@ const legacyRedirects = [
   ["/terms.html", "/terms"]
 ];
 
+app.get('/favicon.ico', (req, res) => {
+  res.sendFile(path.join(publicHtml, 'favicon.ico'));
+});
+
 legacyRedirects.forEach(([from, to]) => {
   app.get(from, (req, res) => {
     res.redirect(301, to);
